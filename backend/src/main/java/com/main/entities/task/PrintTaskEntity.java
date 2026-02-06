@@ -9,12 +9,14 @@ public class PrintTaskEntity {
     private Long machineId;
     private PrintTaskColor printTaskColor;
     private Long printTaskNumberCopies;
+
     public PrintTaskEntity(
-            Long printTaskId,
-            Long orderId,
-            Long machineId,
-            String printTaskColor,
-            Long printTaskNumberCopies) {
+        Long printTaskId,
+        Long orderId,
+        Long machineId,
+        String printTaskColor,
+        Long printTaskNumberCopies
+    ) {
         this.printTaskId = printTaskId;
         this.orderId = orderId;
         this.machineId = machineId;

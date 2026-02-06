@@ -1,6 +1,5 @@
 package com.main.entities.vendingPoints;
 
-
 import lombok.Data;
 
 @Data
@@ -11,10 +10,11 @@ public class FunctionVariantEntity {
     private FunctionVariantEnum functionVariant;
 
     public FunctionVariantEntity(
-            Long functionVariantId,
-            Long vendingPointId,
-            Long machineId,
-            String functionVariant) {
+        Long functionVariantId,
+        Long vendingPointId,
+        Long machineId,
+        String functionVariant
+    ) {
         this.functionVariantId = functionVariantId;
         this.vendingPointId = vendingPointId;
         this.machineId = machineId;

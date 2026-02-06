@@ -1,11 +1,13 @@
 package com.main.entities.order;
 
-import lombok.Data;
-
 import java.math.BigDecimal;
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 @Data
+@AllArgsConstructor
 public class OrderEntity {
     private Long orderId;
     private Long accountId;
@@ -17,14 +19,15 @@ public class OrderEntity {
     private Long orderNum;
 
     public OrderEntity(
-            Long orderId,
-            Long accountId,
-            Long vendingPointId,
-            BigDecimal orderAmount,
-            Date orderDatetime,
-            String orderType,
-            String orderStatus,
-            Long orderNum) {
+        Long orderId,
+        Long accountId,
+        Long vendingPointId,
+        BigDecimal orderAmount,
+        Date orderDatetime,
+        String orderType,
+        String orderStatus,
+        Long orderNum
+    ) {
         this.orderId = orderId;
         this.accountId = accountId;
         this.vendingPointId = vendingPointId;

@@ -1,6 +1,5 @@
 package com.main.entities.order;
 
-
 public enum OrderType {
     PRINT("print"), SCAN("scan");
     private final String name;

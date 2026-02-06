@@ -1,13 +1,11 @@
 package com.main.entities.order;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class OrderScanWithNumberPages {
     private OrderWithAddress orderInfo;
     private Long numberPages;
-    public OrderScanWithNumberPages(OrderWithAddress orderInfo, Long numberPages) {
-        this.orderInfo = orderInfo;
-        this.numberPages = numberPages;
-    }
 }

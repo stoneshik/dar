@@ -1,6 +1,5 @@
 package com.main.entities.user;
 
-
 public enum UserStatus {
     UNVERIFIED("unverified"),
     VERIFIED("verified"),
