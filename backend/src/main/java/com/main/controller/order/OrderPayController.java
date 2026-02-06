@@ -48,7 +48,7 @@ public class OrderPayController {
     }
 
     @PostMapping(
-        path = "/api/order/pay",
+        path = "/api/v1/orders/pay",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )

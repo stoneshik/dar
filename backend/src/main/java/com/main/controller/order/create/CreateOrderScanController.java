@@ -35,7 +35,7 @@ public class CreateOrderScanController {
     }
 
     @PostMapping(
-        path = "/api/order/create/scan_order",
+        path = "/api/v1/orders/scan",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )

@@ -30,7 +30,7 @@ public class ReplenishController {
     private final AuthorizeHandler authorizeHandler;
 
     @GetMapping(
-        path = "/api/replenish/get_all",
+        path = "/api/v1/account/replenishes",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Object> getReplenishes(HttpServletRequest httpServletRequest) {
@@ -53,7 +53,7 @@ public class ReplenishController {
     }
 
     @PostMapping(
-        path = "/api/replenish/new",
+        path = "/api/v1/account/replenishes",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )

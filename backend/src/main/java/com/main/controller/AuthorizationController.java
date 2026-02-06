@@ -27,7 +27,7 @@ public class AuthorizationController {
     private final AuthorizeHandler authorizeHandler;
 
     @PostMapping(
-        path = "/api/open/auth",
+        path = "/api/v1/open/auth",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )

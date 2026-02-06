@@ -25,7 +25,7 @@ public class FileInfoController {
     private final AuthorizeHandler authorizeHandler;
 
     @GetMapping(
-        path = "/api/file/get_all_scan",
+        path = "/api/v1/files/scan",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     private ResponseEntity<Object> getOrderScanById(HttpServletRequest httpServletRequest) {
@@ -54,8 +54,8 @@ public class FileInfoController {
     }
 
     @GetMapping(
-            path = "/api/file/get_all_print",
-            produces = MediaType.APPLICATION_JSON_VALUE
+        path = "/api/v1/files/print",
+        produces = MediaType.APPLICATION_JSON_VALUE
     )
     private ResponseEntity<Object> getOrderPrintById(HttpServletRequest httpServletRequest) {
         final String login = authorizeHandler.getLoginBySessionId(httpServletRequest);

@@ -38,7 +38,7 @@ public class OrderRemoveController {
         return orderRemoveStrategy;
     }
 
-    @DeleteMapping(path = "/api/order/remove/{id}")
+    @DeleteMapping(path = "/api/v1/orders/{id}")
     public ResponseEntity<ResponseMessageWrapper> removeOrder(
         @PathVariable("id") Long orderId,
         HttpServletRequest httpServletRequest

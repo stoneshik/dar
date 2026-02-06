@@ -18,7 +18,7 @@ public class LogoutController {
     private final AuthorizeHandler authorizeHandler;
 
     @PostMapping(
-        path = "/api/logout",
+        path = "/api/v1/logout",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<ResponseMessageWrapper> logout(HttpServletRequest httpServletRequest) {

@@ -31,12 +31,13 @@ public class GetOrderController {
     private final AuthorizeHandler authorizeHandler;
 
     @GetMapping(
-        path = "/api/order/get_print/{orderId}",
+        path = "/api/v1/orders/print/{orderId}",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     private ResponseEntity<Object> getOrderPrintById(
-            HttpServletRequest httpServletRequest,
-            @PathVariable Long orderId) {
+        HttpServletRequest httpServletRequest,
+        @PathVariable Long orderId
+    ) {
         final String login = authorizeHandler.getLoginBySessionId(httpServletRequest);
         if (login.isEmpty()) {
             return new ResponseEntity<>(
@@ -63,7 +64,7 @@ public class GetOrderController {
     }
 
     @GetMapping(
-        path = "/api/order/get_scan/{orderId}",
+        path = "/api/v1/orders/scan/{orderId}",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     private ResponseEntity<Object> getOrderScanById(

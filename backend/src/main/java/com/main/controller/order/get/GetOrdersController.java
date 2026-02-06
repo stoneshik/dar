@@ -52,7 +52,7 @@ public class GetOrdersController {
     }
 
     @GetMapping(
-        path = "/api/order/get_paid",
+        path = "/api/v1/orders/status/paid",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Object> getPaidOrders(HttpServletRequest httpServletRequest) {
@@ -60,7 +60,7 @@ public class GetOrdersController {
     }
 
     @GetMapping(
-        path = "/api/order/get_not_paid",
+        path = "/api/v1/orders/status/not-paid",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Object> getNotPaidOrders(HttpServletRequest httpServletRequest) {

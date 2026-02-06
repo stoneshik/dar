@@ -22,7 +22,7 @@ public class AccountController {
     private final AuthorizeHandler authorizeHandler;
 
     @GetMapping(
-        path = "/api/account/get_balance",
+        path = "/api/v1/account/balance",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Object> getBalance(HttpServletRequest httpServletRequest) {

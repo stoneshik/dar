@@ -20,7 +20,7 @@ public class VendingPointController {
     private final VendingPointService vendingPointService;
 
     @GetMapping(
-        path = "/api/open/vending_point/get_all",
+        path = "/api/v1/open/vending-points",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Object> getAll() {
@@ -35,7 +35,7 @@ public class VendingPointController {
     }
 
     @GetMapping(
-        path = "/api/vending_point/get_print",
+        path = "/api/v1/vending-points/print",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Object> getPointsForPrint() {
@@ -50,7 +50,7 @@ public class VendingPointController {
     }
 
     @GetMapping(
-        path = "/api/vending_point/get_scan",
+        path = "/api/v1/vending-points/scan",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Object> getPointsForScan() {

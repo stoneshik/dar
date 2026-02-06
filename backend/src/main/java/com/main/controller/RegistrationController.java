@@ -23,7 +23,7 @@ public class RegistrationController {
     private final BCryptPasswordEncoder passwordEncoder;
 
     @PostMapping(
-        path = "/api/open/register",
+        path = "/api/v1/open/register",
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )

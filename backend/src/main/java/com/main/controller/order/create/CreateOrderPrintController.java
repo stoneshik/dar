@@ -74,13 +74,14 @@ public class CreateOrderPrintController {
 
 
     @PostMapping(
-            path = "/api/order/create/print_order",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
+        path = "/api/v1/orders/print",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Object> createOrderPrint(
-            HttpServletRequest httpServletRequest,
-            @Valid @RequestBody OrderPrintDto orderPrintDto) {
+        HttpServletRequest httpServletRequest,
+        @Valid @RequestBody OrderPrintDto orderPrintDto
+    ) {
         final String login = authorizeHandler.getLoginBySessionId(httpServletRequest);
         if (login.isEmpty()) {
             return new ResponseEntity<>(

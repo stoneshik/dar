@@ -25,12 +25,13 @@ public class FileController {
     private final AuthorizeHandler authorizeHandler;
 
     @GetMapping(
-        path = "/api/file/get/{fileId}",
+        path = "/api/v1/files/{fileId}",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     private ResponseEntity<Object> getOrderScanById(
-            HttpServletRequest httpServletRequest,
-            @PathVariable Long fileId) {
+        HttpServletRequest httpServletRequest,
+        @PathVariable Long fileId
+    ) {
         final String login = authorizeHandler.getLoginBySessionId(httpServletRequest);
         if (login.isEmpty()) {
             return new ResponseEntity<>(
