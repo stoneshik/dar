@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.main.ResponseMessageWrapper;
 import com.main.dto.OrderScanDto;
 import com.main.entities.account.BalanceEntity;
+import com.main.repositories.impls.AccountRepositoryImpl;
+import com.main.repositories.impls.OrderRepositoryImpl;
+import com.main.repositories.impls.task.TaskScanRepositoryImpl;
 import com.main.security.AuthorizeHandler;
-import com.main.services.AccountService;
-import com.main.services.OrderService;
-import com.main.services.task.TaskScanService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -25,9 +25,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CreateOrderScanController {
     private final AuthorizeHandler authorizeHandler;
-    private final OrderService orderService;
-    private final AccountService accountService;
-    private final TaskScanService taskService;
+    private final OrderRepositoryImpl orderService;
+    private final AccountRepositoryImpl accountService;
+    private final TaskScanRepositoryImpl taskService;
 
     private BigDecimal countAmount(OrderScanDto orderScanDto) {
         final double pagePrice = 0.5;

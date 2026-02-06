@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.main.ResponseMessageWrapper;
 import com.main.entities.vendingPoints.VendingPointWithFunctionVariant;
-import com.main.services.VendingPointService;
+import com.main.repositories.impls.VendingPointRepositoryImpl;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 public class VendingPointController {
-    private final VendingPointService vendingPointService;
+    private final VendingPointRepositoryImpl vendingPointService;
 
     @GetMapping(
         path = "/api/v1/open/vending-points",

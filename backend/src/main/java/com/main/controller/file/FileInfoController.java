@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.main.ResponseMessageWrapper;
 import com.main.entities.file.FileInfoEntity;
+import com.main.repositories.impls.FileRepositoryImpl;
+import com.main.repositories.impls.UserRepositoryImpl;
 import com.main.security.AuthorizeHandler;
-import com.main.services.FileService;
-import com.main.services.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +20,8 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class FileInfoController {
-    private final FileService fileService;
-    private final UserService userService;
+    private final FileRepositoryImpl fileService;
+    private final UserRepositoryImpl userService;
     private final AuthorizeHandler authorizeHandler;
 
     @GetMapping(

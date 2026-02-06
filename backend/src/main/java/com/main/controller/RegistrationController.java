@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.main.ResponseMessageWrapper;
 import com.main.dto.RegisterDto;
 import com.main.entities.user.UserEntity;
-import com.main.services.UserService;
+import com.main.repositories.impls.UserRepositoryImpl;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class RegistrationController {
-    private final UserService userService;
+    private final UserRepositoryImpl userService;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @PostMapping(

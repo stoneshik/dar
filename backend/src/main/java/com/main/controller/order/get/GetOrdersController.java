@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.main.ResponseMessageWrapper;
 import com.main.entities.order.OrderStatus;
 import com.main.entities.order.OrderWithAddress;
+import com.main.repositories.impls.OrderWithAddressRepositoryImpl;
 import com.main.security.AuthorizeHandler;
-import com.main.services.OrderWithAddressService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class GetOrdersController {
-    private final OrderWithAddressService orderWithAddressService;
+    private final OrderWithAddressRepositoryImpl orderWithAddressService;
     private final AuthorizeHandler authorizeHandler;
 
     private List<OrderWithAddress> getOrdersFromBd(OrderStatus orderStatus, String login) {

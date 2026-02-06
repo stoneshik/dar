@@ -18,9 +18,9 @@ import com.main.entities.account.BalanceEntity;
 import com.main.entities.order.OrderStatus;
 import com.main.entities.order.OrderType;
 import com.main.entities.order.OrderWithAddress;
+import com.main.repositories.impls.AccountRepositoryImpl;
+import com.main.repositories.impls.OrderWithAddressRepositoryImpl;
 import com.main.security.AuthorizeHandler;
-import com.main.services.AccountService;
-import com.main.services.OrderWithAddressService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -30,8 +30,8 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class OrderPayController {
-    private final OrderWithAddressService orderWithAddressService;
-    private final AccountService accountService;
+    private final OrderWithAddressRepositoryImpl orderWithAddressService;
+    private final AccountRepositoryImpl accountService;
     private final AuthorizeHandler authorizeHandler;
 
     private OrderWithAddress mapOrderWithAddressDto(OrderWithAddressDto orderDto) {

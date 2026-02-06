@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.main.ResponseMessageWrapper;
 import com.main.dto.ReplenishDto;
 import com.main.entities.replenish.ReplenishEntity;
+import com.main.repositories.impls.AccountRepositoryImpl;
+import com.main.repositories.impls.ReplenishRepositoryImpl;
 import com.main.security.AuthorizeHandler;
-import com.main.services.AccountService;
-import com.main.services.ReplenishService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -25,8 +25,8 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class ReplenishController {
-    private final AccountService accountService;
-    private final ReplenishService replenishService;
+    private final AccountRepositoryImpl accountService;
+    private final ReplenishRepositoryImpl replenishService;
     private final AuthorizeHandler authorizeHandler;
 
     @GetMapping(

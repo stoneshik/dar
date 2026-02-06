@@ -11,10 +11,10 @@ import com.main.ResponseMessageWrapper;
 import com.main.entities.account.BalanceEntity;
 import com.main.entities.order.OrderEntity;
 import com.main.entities.order.OrderStatus;
+import com.main.repositories.impls.AccountRepositoryImpl;
+import com.main.repositories.impls.FileRepositoryImpl;
+import com.main.repositories.impls.OrderRepositoryImpl;
 import com.main.security.AuthorizeHandler;
-import com.main.services.AccountService;
-import com.main.services.FileService;
-import com.main.services.OrderService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +22,9 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class OrderRemoveController {
-    private final OrderService orderService;
-    private final AccountService accountService;
-    private final FileService fileService;
+    private final OrderRepositoryImpl orderService;
+    private final AccountRepositoryImpl accountService;
+    private final FileRepositoryImpl fileService;
     private final AuthorizeHandler authorizeHandler;
 
     private OrderRemoveStrategy switchOrderRemoveStrategy(OrderStatus orderStatus) {

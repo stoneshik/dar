@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.main.ResponseMessageWrapper;
 import com.main.dto.AuthDto;
 import com.main.entities.user.UserEntity;
+import com.main.repositories.impls.UserRepositoryImpl;
 import com.main.security.AuthorizeHandler;
-import com.main.services.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class AuthorizationController {
-    private final UserService userService;
+    private final UserRepositoryImpl userService;
     private final BCryptPasswordEncoder passwordEncoder;
     private final AuthorizeHandler authorizeHandler;
 

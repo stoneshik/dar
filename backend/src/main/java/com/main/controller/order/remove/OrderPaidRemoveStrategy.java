@@ -5,16 +5,16 @@ import java.math.BigDecimal;
 import com.main.entities.account.BalanceEntity;
 import com.main.entities.order.OrderEntity;
 import com.main.entities.order.OrderType;
-import com.main.services.AccountService;
-import com.main.services.FileService;
-import com.main.services.OrderService;
+import com.main.repositories.impls.AccountRepositoryImpl;
+import com.main.repositories.impls.FileRepositoryImpl;
+import com.main.repositories.impls.OrderRepositoryImpl;
 
 public class OrderPaidRemoveStrategy implements OrderRemoveStrategy {
-    private final OrderService orderService;
-    private final FileService fileService;
-    private final AccountService accountService;
+    private final OrderRepositoryImpl orderService;
+    private final FileRepositoryImpl fileService;
+    private final AccountRepositoryImpl accountService;
 
-    public OrderPaidRemoveStrategy(OrderService orderService, AccountService accountService, FileService fileService) {
+    public OrderPaidRemoveStrategy(OrderRepositoryImpl orderService, AccountRepositoryImpl accountService, FileRepositoryImpl fileService) {
         this.orderService = orderService;
         this.accountService = accountService;
         this.fileService = fileService;

@@ -14,11 +14,11 @@ import com.main.dto.OrderPrintDto;
 import com.main.dto.TaskPrintDto;
 import com.main.entities.account.BalanceEntity;
 import com.main.entities.task.PrintTaskColor;
+import com.main.repositories.impls.AccountRepositoryImpl;
+import com.main.repositories.impls.OrderRepositoryImpl;
+import com.main.repositories.impls.UserRepositoryImpl;
+import com.main.repositories.impls.task.TaskPrintRepositoryImpl;
 import com.main.security.AuthorizeHandler;
-import com.main.services.AccountService;
-import com.main.services.OrderService;
-import com.main.services.UserService;
-import com.main.services.task.TaskPrintService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -28,10 +28,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CreateOrderPrintController {
     private final AuthorizeHandler authorizeHandler;
-    private final OrderService orderService;
-    private final AccountService accountService;
-    private final UserService userService;
-    private final TaskPrintService taskService;
+    private final OrderRepositoryImpl orderService;
+    private final AccountRepositoryImpl accountService;
+    private final UserRepositoryImpl userService;
+    private final TaskPrintRepositoryImpl taskService;
 
     private BigDecimal countAmount(OrderPrintDto orderPrintDto) {
         final double pagePriceForBlackWhite = 7.0;

@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.main.ResponseMessageWrapper;
 import com.main.entities.account.BalanceEntity;
+import com.main.repositories.impls.AccountRepositoryImpl;
 import com.main.security.AuthorizeHandler;
-import com.main.services.AccountService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class AccountController {
-    private final AccountService accountService;
+    private final AccountRepositoryImpl accountService;
     private final AuthorizeHandler authorizeHandler;
 
     @GetMapping(

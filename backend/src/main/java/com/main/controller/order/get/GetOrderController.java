@@ -14,10 +14,10 @@ import com.main.entities.file.FileInfoEntity;
 import com.main.entities.order.OrderPrintWithFilesInfoEntity;
 import com.main.entities.order.OrderScanWithNumberPages;
 import com.main.entities.order.OrderWithAddress;
+import com.main.repositories.impls.FileRepositoryImpl;
+import com.main.repositories.impls.OrderWithAddressRepositoryImpl;
+import com.main.repositories.impls.task.TaskScanRepositoryImpl;
 import com.main.security.AuthorizeHandler;
-import com.main.services.FileService;
-import com.main.services.OrderWithAddressService;
-import com.main.services.task.TaskScanService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +25,9 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class GetOrderController {
-    private final OrderWithAddressService orderWithAddressService;
-    private final FileService fileService;
-    private final TaskScanService taskScanService;
+    private final OrderWithAddressRepositoryImpl orderWithAddressService;
+    private final FileRepositoryImpl fileService;
+    private final TaskScanRepositoryImpl taskScanService;
     private final AuthorizeHandler authorizeHandler;
 
     @GetMapping(

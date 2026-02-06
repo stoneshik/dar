@@ -3,14 +3,14 @@ package com.main.controller.order.remove;
 import com.main.entities.account.BalanceEntity;
 import com.main.entities.order.OrderEntity;
 import com.main.entities.order.OrderType;
-import com.main.services.FileService;
-import com.main.services.OrderService;
+import com.main.repositories.impls.FileRepositoryImpl;
+import com.main.repositories.impls.OrderRepositoryImpl;
 
 public class OrderNotPaidRemoveStrategy implements OrderRemoveStrategy {
-    private final OrderService orderService;
-    private final FileService fileService;
+    private final OrderRepositoryImpl orderService;
+    private final FileRepositoryImpl fileService;
 
-    public OrderNotPaidRemoveStrategy(OrderService orderService, FileService fileService) {
+    public OrderNotPaidRemoveStrategy(OrderRepositoryImpl orderService, FileRepositoryImpl fileService) {
         this.orderService = orderService;
         this.fileService = fileService;
     }
