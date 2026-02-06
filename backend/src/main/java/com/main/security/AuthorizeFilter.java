@@ -42,7 +42,7 @@ public class AuthorizeFilter extends HttpFilter {
         HttpServletRequest httpServletRequest,
         HttpServletResponse httpServletResponse,
         FilterChain filterChain
-    )   throws IOException, ServletException {
+    ) throws IOException, ServletException {
         if (shouldNotFilter(httpServletRequest)) {
             filterChain.doFilter(httpServletRequest, httpServletResponse);
             return;

@@ -13,7 +13,6 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import lombok.RequiredArgsConstructor;
 
-
 @Configuration
 @ComponentScan
 @EnableWebSecurity
@@ -22,12 +21,12 @@ public class SecurityConfig {
     private final AuthorizeFilter authorizeFilter;
 
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
+    BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(
                 httpSecuritySessionManagementConfigurer ->

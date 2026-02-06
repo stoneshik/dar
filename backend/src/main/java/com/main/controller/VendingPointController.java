@@ -1,37 +1,25 @@
 package com.main.controller;
 
-import java.util.List;
-
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.main.ResponseMessageWrapper;
-import com.main.entities.vendingPoints.VendingPointWithFunctionVariant;
-import com.main.repositories.impls.VendingPointRepositoryImpl;
+import com.main.services.VendingPointService;
 
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 public class VendingPointController {
-    private final VendingPointRepositoryImpl vendingPointService;
+    private final VendingPointService vendingPointService;
 
     @GetMapping(
         path = "/api/v1/open/vending-points",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Object> getAll() {
-        List<VendingPointWithFunctionVariant> vendingPoints = vendingPointService.getAll();
-        if (vendingPoints == null) {
-            return new ResponseEntity<>(
-                new ResponseMessageWrapper("Не удалось получить информацию о вендинговых точках"),
-                HttpStatus.BAD_REQUEST
-            );
-        }
-        return new ResponseEntity<>(vendingPoints, HttpStatus.OK);
+        return vendingPointService.getAll();
     }
 
     @GetMapping(
@@ -39,14 +27,7 @@ public class VendingPointController {
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Object> getPointsForPrint() {
-        List<VendingPointWithFunctionVariant> vendingPoints = vendingPointService.getPointsForPrint();
-        if (vendingPoints == null) {
-            return new ResponseEntity<>(
-                new ResponseMessageWrapper("Не удалось получить информацию о вендинговых точках"),
-                HttpStatus.BAD_REQUEST
-            );
-        }
-        return new ResponseEntity<>(vendingPoints, HttpStatus.OK);
+        return vendingPointService.getPointsForPrint();
     }
 
     @GetMapping(
@@ -54,13 +35,6 @@ public class VendingPointController {
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Object> getPointsForScan() {
-        List<VendingPointWithFunctionVariant> vendingPoints = vendingPointService.getPointsForScan();
-        if (vendingPoints == null) {
-            return new ResponseEntity<>(
-                new ResponseMessageWrapper("Не удалось получить информацию о вендинговых точках"),
-                HttpStatus.BAD_REQUEST
-            );
-        }
-        return new ResponseEntity<>(vendingPoints, HttpStatus.OK);
+        return vendingPointService.getPointsForScan();
     }
 }

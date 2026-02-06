@@ -1,66 +1,33 @@
-package com.main.controller;
+package com.main.controller.order;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.main.ResponseMessageWrapper;
-import com.main.dto.ReplenishDto;
+import com.main.entities.order.OrderStatus;
 import com.main.security.AuthorizeHandler;
-import com.main.services.AccountService;
+import com.main.services.order.GetOrderService;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class AccountController {
+public class GetOrderController {
     private final AuthorizeHandler authorizeHandler;
-    private final AccountService accountService;
+    private final GetOrderService getOrderService;
 
     @GetMapping(
-        path = "/api/v1/account/balance",
+        path = "/api/v1/orders/print/{orderId}",
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Object> getBalance(HttpServletRequest httpServletRequest) {
-        final String login = authorizeHandler.getLoginBySessionId(httpServletRequest);
-        if (login.isEmpty()) {
-            return new ResponseEntity<>(
-                new ResponseMessageWrapper("Пользователь не авторизован"),
-                HttpStatus.BAD_REQUEST
-            );
-        }
-        return accountService.getBalance(login);
-    }
-
-    @GetMapping(
-        path = "/api/v1/account/replenishes",
-        produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<Object> getReplenishes(HttpServletRequest httpServletRequest) {
-        final String login = authorizeHandler.getLoginBySessionId(httpServletRequest);
-        if (login.isEmpty()) {
-            return new ResponseEntity<>(
-                new ResponseMessageWrapper("Пользователь не авторизован"),
-                HttpStatus.BAD_REQUEST
-            );
-        }
-        return accountService.getReplenishes(login);
-    }
-
-    @PostMapping(
-        path = "/api/v1/account/replenishes",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE
-    )
-    public ResponseEntity<ResponseMessageWrapper> createReplenish(
-        @Valid @RequestBody ReplenishDto replenishDto,
-        HttpServletRequest httpServletRequest
+    private ResponseEntity<Object> getOrderPrintById(
+        HttpServletRequest httpServletRequest,
+        @PathVariable Long orderId
     ) {
         final String login = authorizeHandler.getLoginBySessionId(httpServletRequest);
         if (login.isEmpty()) {
@@ -69,6 +36,54 @@ public class AccountController {
                 HttpStatus.BAD_REQUEST
             );
         }
-        return accountService.createReplenish(replenishDto, login);
+        return getOrderService.getOrderPrintById(login, orderId);
+    }
+
+    @GetMapping(
+        path = "/api/v1/orders/scan/{orderId}",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    private ResponseEntity<Object> getOrderScanById(
+        HttpServletRequest httpServletRequest,
+        @PathVariable Long orderId
+    ) {
+        final String login = authorizeHandler.getLoginBySessionId(httpServletRequest);
+        if (login.isEmpty()) {
+            return new ResponseEntity<>(
+                new ResponseMessageWrapper("Пользователь не авторизован"),
+                HttpStatus.BAD_REQUEST
+            );
+        }
+        return getOrderService.getOrderScanById(login, orderId);
+    }
+
+    @GetMapping(
+        path = "/api/v1/orders/status/paid",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Object> getPaidOrders(HttpServletRequest httpServletRequest) {
+        final String login = authorizeHandler.getLoginBySessionId(httpServletRequest);
+        if (login.isEmpty()) {
+            return new ResponseEntity<>(
+                new ResponseMessageWrapper("Пользователь не авторизован"),
+                HttpStatus.BAD_REQUEST
+            );
+        }
+        return getOrderService.getOrders(login, OrderStatus.PAID);
+    }
+
+    @GetMapping(
+        path = "/api/v1/orders/status/not-paid",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Object> getNotPaidOrders(HttpServletRequest httpServletRequest) {
+        final String login = authorizeHandler.getLoginBySessionId(httpServletRequest);
+        if (login.isEmpty()) {
+            return new ResponseEntity<>(
+                new ResponseMessageWrapper("Пользователь не авторизован"),
+                HttpStatus.BAD_REQUEST
+            );
+        }
+        return getOrderService.getOrders(login, OrderStatus.NOT_PAID);
     }
 }
