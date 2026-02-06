@@ -23,7 +23,7 @@ export function NewOrderPrint() {
     const PAGE_PRICE_FOR_COLOR = 15.0;
     useEffect(() => {
         superagent
-            .get('/api/vending_point/get_print')
+            .get('/api/v1/vending-points/print')
             .set('Content-Type', 'application/json')
             .then((result) => {
                     const responseVendingPoints = result.body;
@@ -48,7 +48,7 @@ export function NewOrderPrint() {
             );
     }, []);
     const validateForm = async () => {
-        if (!selectedVendingPoint || selectedVendingPoint === {}) {
+        if (!selectedVendingPoint) {
             setErrorMessage('Выберите адрес');
             return false;
         }
@@ -95,7 +95,7 @@ export function NewOrderPrint() {
             );
         }
         await superagent
-            .post('/api/order/create/print_order')
+            .post('/api/v1/orders/print')
             .send(
                 JSON.stringify(
                 {"vendingPointId": vendingPointId, "tasksPrint": tasksPrint}

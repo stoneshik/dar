@@ -14,7 +14,7 @@ export function Home() {
     const [updateVar, setUpdate] = useState(0);
     useEffect(() => {
         superagent
-            .get('/api/order/get_paid')
+            .get('/api/v1/orders/status/paid')
             .set('Content-Type', 'application/json')
             .then((result) => {
                     const responseOrders = result.body;
@@ -51,7 +51,7 @@ export function Home() {
         }
         let isValid = false;
         await superagent
-            .delete('/api/order/remove/' + orderId)
+            .delete('/api/v1/orders/' + orderId)
             .set('Content-Type', 'application/json')
             .then((result) => {
                     isValid = responseMessageHandlerForFormResult(result, setErrorMessage, setSuccessMessage);

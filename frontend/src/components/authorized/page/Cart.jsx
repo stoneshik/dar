@@ -16,7 +16,7 @@ export function Cart() {
     const [updateVar, setUpdate] = useState(0);
     useEffect(() => {
         superagent
-            .get('/api/order/get_not_paid')
+            .get('/api/v1/orders/status/not-paid')
             .set('Content-Type', 'application/json')
             .then((result) => {
                     const responseOrders = result.body;
@@ -68,7 +68,7 @@ export function Cart() {
         removeRow(orderNum, orderAmount);
         let isValid = false;
         await superagent
-            .delete('/api/order/remove/' + orderId)
+            .delete('/api/v1/orders/' + orderId)
             .set('Content-Type', 'application/json')
             .then((result) => {
                     isValid = responseMessageHandlerForFormResult(result, setErrorMessage, setSuccessMessage);
@@ -114,7 +114,7 @@ export function Cart() {
         }
         let isValid = false;
         await superagent
-            .post('/api/order/pay')
+            .post('/api/v1/orders/pay')
             .send(handlingOrders)
             .set('Content-Type', 'application/json')
             .then(

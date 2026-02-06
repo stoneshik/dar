@@ -10,7 +10,7 @@ export function MyMap() {
     const [vendingPoints, setVendingPoints] = useState([]);
     useEffect(() => {
         superagent
-            .get('/api/open/vending_point/get_all')
+            .get('/api/v1/open/vending-points')
             .set('Content-Type', 'application/json')
             .then((result) => {
                     const responseVendingPoints = result.body;

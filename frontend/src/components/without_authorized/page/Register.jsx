@@ -54,7 +54,7 @@ export function Register() {
         }
         let isValid = false;
         await superagent
-            .post('/api/open/register')
+            .post('/api/v1/open/register')
             .send({"email": email, "login": login, "password": password})
             .set('Content-Type', 'application/json')
             .then(

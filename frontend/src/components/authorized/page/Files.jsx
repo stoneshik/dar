@@ -11,7 +11,7 @@ export function Files() {
     const [filesAttachedPrintOrder, setFilesAttachedPrintOrder] = useState([]);
     useEffect(() => {
         superagent
-            .get('/api/file/get_all_scan')
+            .get('/api/v1/files/scan')
             .set('Content-Type', 'application/json')
             .then((result) => {
                     const files = result.body;
@@ -33,7 +33,7 @@ export function Files() {
                 }
             );
         superagent
-            .get('/api/file/get_all_print')
+            .get('/api/v1/files/print')
             .set('Content-Type', 'application/json')
             .then((result) => {
                     const files = result.body;

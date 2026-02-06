@@ -10,7 +10,7 @@ export function Header() {
     const [balance, setBalance] = useState(0.0);
     useEffect(() => {
         superagent
-            .get('/api/account/get_balance')
+            .get('/api/v1/account/balance')
             .set('Content-Type', 'application/json')
             .then((result) => {
                     const userLogin = result.body['userLogin'];
@@ -36,7 +36,7 @@ export function Header() {
     }, []);
     const logout = async () => {
         await superagent
-            .post('/api/logout')
+            .post('/api/v1/logout')
             .set('Content-Type', 'application/json')
             .then((result) => {return true;})
             .catch((err) => {

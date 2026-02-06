@@ -12,7 +12,7 @@ export function OrderScan() {
     const [numberPages, setNumberPages] = useState(0);
     useEffect(() => {
         superagent
-            .get('/api/order/get_scan/' + id)
+            .get('/api/v1/orders/scan/' + id)
             .set('Content-Type', 'application/json')
             .then((result) => {
                     const response = result.body;

@@ -11,7 +11,7 @@ export function FileSaving() {
     const [downloadingMessage, setDownloadingMessage] = useState('Файл скачивается...');
     useEffect(() => {
         superagent
-            .get('/api/file/get/' + id)
+            .get('/api/v1/files/' + id)
             .set('Content-Type', 'application/json')
             .then((result) => {
                     const file = result.body;

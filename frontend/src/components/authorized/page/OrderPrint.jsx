@@ -12,7 +12,7 @@ export function OrderPrint() {
     const [filesInfo, setFilesInfo] = useState([]);
     useEffect(() => {
         superagent
-            .get('/api/order/get_print/' + id)
+            .get('/api/v1/orders/print/' + id)
             .set('Content-Type', 'application/json')
             .then((result) => {
                     const response = result.body;

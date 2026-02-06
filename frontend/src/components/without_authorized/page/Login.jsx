@@ -53,7 +53,7 @@ export function Login() {
         }
         let isValid = false;
         await superagent
-            .post('/api/open/auth')
+            .post('/api/v1/open/auth')
             .send({"login": login, "password": password})
             .set('Content-Type', 'application/json')
             .then(

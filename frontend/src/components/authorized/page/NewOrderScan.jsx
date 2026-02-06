@@ -7,7 +7,6 @@ import { Footer } from "../footer/Footer";
 import {responseMessageHandlerForFormError, responseMessageHandlerForFormResult} from "../../../responseHandlers";
 
 
-
 export function NewOrderScan() {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
@@ -18,7 +17,7 @@ export function NewOrderScan() {
     const [amount, setAmount] = useState(0);
     useEffect(() => {
         superagent
-            .get('/api/vending_point/get_scan')
+            .get('/api/v1/vending-points/scan')
             .set('Content-Type', 'application/json')
             .then((result) => {
                     const responseVendingPoints = result.body;
@@ -86,7 +85,7 @@ export function NewOrderScan() {
         }
     };
     const validateForm = async () => {
-        if (!selectedVendingPoint || selectedVendingPoint === {}) {
+        if (!selectedVendingPoint) {
             setErrorMessage('Выберите адрес');
             return false;
         }
@@ -114,7 +113,7 @@ export function NewOrderScan() {
             return false;
         }
         await superagent
-            .post('/api/order/create/scan_order')
+            .post('/api/v1/orders/scan')
             .send({"vendingPointId": vendingPointId, "scanTaskNumberPages": scanTaskNumberPages})
             .set('Content-Type', 'application/json')
             .then(

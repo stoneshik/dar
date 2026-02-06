@@ -8,7 +8,7 @@ export function Replenishes() {
     const [replenishes, setReplenishes] = useState([]);
     useEffect(() => {
         superagent
-            .get('/api/replenish/get_all')
+            .get('/api/v1/account/replenishes')
             .set('Content-Type', 'application/json')
             .then((result) => {
                     const responseReplenishes = result.body;

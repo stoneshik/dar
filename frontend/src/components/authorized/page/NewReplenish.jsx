@@ -36,7 +36,7 @@ export function NewReplenish() {
         }
         let isValid = false;
         await superagent
-            .post('/api/replenish/new')
+            .post('/api/v1/account/replenishes')
             .send({"replenishAmount": amount})
             .set('Content-Type', 'application/json')
             .then(
