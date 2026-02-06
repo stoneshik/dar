@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 *.docx*
+.env
 
 ### STS ###
 .apt_generated

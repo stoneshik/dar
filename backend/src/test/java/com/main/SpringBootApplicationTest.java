@@ -5,13 +5,10 @@ import javax.script.ScriptException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.web.servlet.MockMvc;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.ext.ScriptUtils;
 import org.testcontainers.jdbc.JdbcDatabaseDelegate;
@@ -20,7 +17,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @TestInstance(Lifecycle.PER_CLASS)
 @SpringBootTest
-@AutoConfigureMockMvc
 @Testcontainers
 @ActiveProfiles("test")
 abstract class SpringBootApplicationTest {
@@ -48,11 +44,8 @@ abstract class SpringBootApplicationTest {
         }
     }
 
-    @Autowired
-    protected MockMvc mockMvc;
-
     protected void setupDb() throws ScriptException {
-        clearDb();
+        //clearDb();
         createDb();
         insertDataInDb();
     }
