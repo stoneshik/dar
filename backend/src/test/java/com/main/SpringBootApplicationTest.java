@@ -2,17 +2,13 @@ package com.main;
 
 import javax.script.ScriptException;
 
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.ext.ScriptUtils;
 import org.testcontainers.jdbc.JdbcDatabaseDelegate;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @TestInstance(Lifecycle.PER_CLASS)
@@ -20,69 +16,63 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers
 @ActiveProfiles("test")
 abstract class SpringBootApplicationTest {
-    @Container
-    static final PostgreSQLContainer<?> postgresSqlContainer;
-
-    static {
-        postgresSqlContainer = new PostgreSQLContainer<>("postgres:16.4")
-            .withReuse(false)
-            .withDatabaseName("is_service");
-        postgresSqlContainer.start();
+    protected void setupDb(PostgreSQLContainer<?> postgresSqlContainer) throws ScriptException {
+        clearDb(postgresSqlContainer);
+        createDb(postgresSqlContainer);
+        insertDataInDb(postgresSqlContainer);
     }
 
-    @DynamicPropertySource
-    static void registerPgProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgresSqlContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", postgresSqlContainer::getUsername);
-        registry.add("spring.datasource.password", postgresSqlContainer::getPassword);
+    protected void setupEmptyDb(PostgreSQLContainer<?> postgresSqlContainer) throws ScriptException {
+        clearDb(postgresSqlContainer);
+        createDb(postgresSqlContainer);
     }
 
-    @AfterAll
-    void stopContainers() {
-        if (postgresSqlContainer.isRunning()) {
-            postgresSqlContainer.stop();
-        }
-    }
-
-    protected void setupDb() throws ScriptException {
-        //clearDb();
-        createDb();
-        insertDataInDb();
-    }
-
-    protected void setupEmptyDb() throws ScriptException {
-        clearDb();
-        createDb();
-    }
-
-    protected void clearDb() throws ScriptException {
+    protected void clearDb(PostgreSQLContainer<?> postgresSqlContainer) throws ScriptException {
         JdbcDatabaseDelegate containerDelegate = new JdbcDatabaseDelegate(postgresSqlContainer, "");
         ScriptUtils.executeDatabaseScript(containerDelegate, "",
             """
-            TRUNCATE accounts CASCADE;
-            TRUNCATE files CASCADE;
-            TRUNCATE function_variants CASCADE;
-            TRUNCATE machine_conditions CASCADE;
-            TRUNCATE machine_files CASCADE;
-            TRUNCATE machine_supplies CASCADE;
-            TRUNCATE machines CASCADE;
-            TRUNCATE orders CASCADE;
-            TRUNCATE print_task_files CASCADE;
-            TRUNCATE print_tasks CASCADE;
-            TRUNCATE replenishes CASCADE;
-            TRUNCATE roles CASCADE;
-            TRUNCATE scan_task_files CASCADE;
-            TRUNCATE scan_tasks CASCADE;
-            TRUNCATE user_roles CASCADE;
-            TRUNCATE users CASCADE;
-            TRUNCATE vending_point_schedules CASCADE;
-            TRUNCATE vending_point_unusual_schedules CASCADE;
-            TRUNCATE vending_points CASCADE;
+            DROP TRIGGER IF EXISTS create_new_user_trigger ON users;
+            DROP TRIGGER IF EXISTS replenish_account_trigger ON replenishes;
+            DROP FUNCTION IF EXISTS create_new_user();
+            DROP FUNCTION IF EXISTS get_role_id_by_name(varchar);
+            DROP FUNCTION IF EXISTS replenish_account();
+            DROP TABLE IF EXISTS
+                -- Удаление ассоциативных сущностей
+                user_roles,
+                function_variants,
+                scan_task_files,
+                print_task_files,
+                machine_files,
+                -- Остальные сущности
+                scan_tasks,
+                print_tasks,
+                machine_supplies,
+                machine_conditions,
+                machines,
+                vending_point_schedules,
+                vending_point_unusual_schedules,
+                vending_points,
+                orders,
+                replenishes,
+                accounts,
+                files,
+                users,
+                roles
+                ;
+            DROP TYPE IF EXISTS
+                user_status_enum,
+                day_week_enum,
+                function_variant_enum,
+                machine_status_enum,
+                order_type_enum,
+                order_status_enum,
+                print_task_color_enum
+                ;
             """
         );
     }
 
-    protected void createDb() throws ScriptException {
+    protected void createDb(PostgreSQLContainer<?> postgresSqlContainer) throws ScriptException {
         JdbcDatabaseDelegate containerDelegate = new JdbcDatabaseDelegate(postgresSqlContainer, "");
         ScriptUtils.executeDatabaseScript(containerDelegate, "",
             """
@@ -288,7 +278,7 @@ abstract class SpringBootApplicationTest {
         );
     }
 
-    protected void insertDataInDb() throws ScriptException {
+    protected void insertDataInDb(PostgreSQLContainer<?> postgresSqlContainer) throws ScriptException {
         JdbcDatabaseDelegate containerDelegate = new JdbcDatabaseDelegate(postgresSqlContainer, "");
         ScriptUtils.executeDatabaseScript(containerDelegate, "",
             """
@@ -389,7 +379,7 @@ abstract class SpringBootApplicationTest {
                 vending_point_schedule_time_start,
                 vending_point_schedule_time_end)
             VALUES
-                (default, 0, '15.11.2024', '02:00', '22:00')
+                (default, 0, '2024-11-15', '02:00', '22:00')
                 ;
             -- Вендинговые аппараты (машины)
             INSERT INTO machines(machine_id, vending_point_id)
