@@ -1,5 +1,14 @@
 package com.main.controller.order.create;
 
+import java.math.BigDecimal;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.main.ResponseMessageWrapper;
 import com.main.dto.OrderPrintDto;
 import com.main.dto.TaskPrintDto;
@@ -10,17 +19,10 @@ import com.main.services.AccountService;
 import com.main.services.OrderService;
 import com.main.services.UserService;
 import com.main.services.task.TaskPrintService;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.math.BigDecimal;
 
 @RestController
 @RequiredArgsConstructor
@@ -89,34 +91,34 @@ public class CreateOrderPrintController {
         Long userId = userService.getUserIdByLogin(login);
         if (userId == null) {
             return new ResponseEntity<>(
-                    new ResponseMessageWrapper("Пользователь не найден"),
-                    HttpStatus.BAD_REQUEST
+                new ResponseMessageWrapper("Пользователь не найден"),
+                HttpStatus.BAD_REQUEST
             );
         }
         if (!checkTypeAndSizeAllFiles(orderPrintDto)) {
             return new ResponseEntity<>(
-                    new ResponseMessageWrapper("Передан файл не подходящего типа, либо размера"),
-                    HttpStatus.BAD_REQUEST
+                new ResponseMessageWrapper("Передан файл не подходящего типа, либо размера"),
+                HttpStatus.BAD_REQUEST
             );
         }
         final BigDecimal orderAmount = countAmount(orderPrintDto);
         BalanceEntity balanceEntity = accountService.getBalance(login);
         final Long orderId = orderService.createNewPrintOrder(
-                balanceEntity.getAccountId(),
-                orderPrintDto.getVendingPointId(),
-                orderAmount
+            balanceEntity.getAccountId(),
+            orderPrintDto.getVendingPointId(),
+            orderAmount
         );
         if (orderId < 0L) {
             return new ResponseEntity<>(
-                    new ResponseMessageWrapper("Не получилось создать новый заказ"),
-                    HttpStatus.BAD_REQUEST
+                new ResponseMessageWrapper("Не получилось создать новый заказ"),
+                HttpStatus.BAD_REQUEST
             );
         }
         Long machineId = taskService.findMachineIdForTaskPrint(orderPrintDto);
         if (machineId == null) {
             return new ResponseEntity<>(
-                    new ResponseMessageWrapper("Не получилось создать новый заказ"),
-                    HttpStatus.BAD_REQUEST
+                new ResponseMessageWrapper("Не получилось создать новый заказ"),
+                HttpStatus.BAD_REQUEST
             );
         }
         final boolean isCreatedTask = taskService.createTasksPrint(
@@ -124,13 +126,13 @@ public class CreateOrderPrintController {
         );
         if (!isCreatedTask) {
             return new ResponseEntity<>(
-                    new ResponseMessageWrapper("Не получилось создать новый заказ"),
-                    HttpStatus.BAD_REQUEST
+                new ResponseMessageWrapper("Не получилось создать новый заказ"),
+                HttpStatus.BAD_REQUEST
             );
         }
         return new ResponseEntity<>(
-                new ResponseMessageWrapper("Новый заказ создан"),
-                HttpStatus.OK
+            new ResponseMessageWrapper("Новый заказ создан"),
+            HttpStatus.OK
         );
     }
 }
