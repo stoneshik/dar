@@ -167,7 +167,7 @@ public class OrderWithAddressRepositoryImpl implements OrderWithAddressRepositor
                     );
                 }
             );
-            return unverifiedOrderWithAddress.equals(verifiedOrderWithAddress);
+            return equalsOrderWithAddress(unverifiedOrderWithAddress, verifiedOrderWithAddress);
         } catch (EmptyResultDataAccessException e) {
             return false;
         }
@@ -181,5 +181,20 @@ public class OrderWithAddressRepositoryImpl implements OrderWithAddressRepositor
     @Override
     public boolean changeStatusOrderToCompleted(Long orderId) {
         return updateOrderStatus(orderId, "completed");
+    }
+
+    private boolean equalsOrderWithAddress(
+        OrderWithAddress unverifiedOrderWithAddress,
+        OrderWithAddress verifiedOrderWithAddress
+    ) {
+        return (
+            unverifiedOrderWithAddress.getOrderId().equals(verifiedOrderWithAddress.getOrderId()) &&
+            unverifiedOrderWithAddress.getAccountId().equals(verifiedOrderWithAddress.getAccountId()) &&
+            unverifiedOrderWithAddress.getOrderAddress().equals(verifiedOrderWithAddress.getOrderAddress()) &&
+            unverifiedOrderWithAddress.getOrderAmount().equals(verifiedOrderWithAddress.getOrderAmount()) &&
+            unverifiedOrderWithAddress.getOrderType().equals(verifiedOrderWithAddress.getOrderType()) &&
+            unverifiedOrderWithAddress.getOrderStatus().equals(verifiedOrderWithAddress.getOrderStatus()) &&
+            unverifiedOrderWithAddress.getOrderNum().equals(verifiedOrderWithAddress.getOrderNum())
+        );
     }
 }

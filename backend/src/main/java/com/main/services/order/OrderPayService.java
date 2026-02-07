@@ -35,7 +35,7 @@ public class OrderPayService {
         BalanceEntity balanceEntity = accountService.getBalance(login);
         List<OrderWithAddress> orders = new ArrayList<>();
         BigDecimal amountOrders = new BigDecimal("0.0");
-        for (OrderWithAddressDto orderDto : ordersDto) {
+        for (OrderWithAddressDto orderDto: ordersDto) {
             if (!Objects.equals(orderDto.getAccountId(), balanceEntity.getAccountId())) {
                 // айди счета в пришедшем заказе отличается от айди счета пользователя
                 return new ResponseEntity<>(
@@ -54,7 +54,7 @@ public class OrderPayService {
                 HttpStatus.BAD_REQUEST
             );
         }
-        for (OrderWithAddress order : orders) {
+        for (OrderWithAddress order: orders) {
             if (!orderWithAddressService.checkOrderInfo(order)) {
                 return new ResponseEntity<>(
                     new ResponseMessageWrapper("Передана неверная информация о заказе"),
