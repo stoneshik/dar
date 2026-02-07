@@ -27,12 +27,12 @@ public class GetOrderService {
     private final TaskScanRepositoryImpl taskScanRepository;
 
     @Transactional
-    public ResponseEntity<Object> getOrderPrintById(String login,Long orderId) {
+    public ResponseEntity<Object> getOrderPrintById(String login, Long orderId) {
         final OrderWithAddress order = orderWithAddressRepository.getOrderById(login, orderId);
         if (order == null) {
             return new ResponseEntity<>(
-                new ResponseMessageWrapper("Не получилось получить информацию о заказе"),
-                HttpStatus.BAD_REQUEST
+                new ResponseMessageWrapper("Заказ не найден"),
+                HttpStatus.NOT_FOUND
             );
         }
         List<FileInfoEntity> files = fileRepository.getFilesByOrderId(order.getOrderId());
@@ -51,8 +51,8 @@ public class GetOrderService {
         final OrderWithAddress order = orderWithAddressRepository.getOrderById(login, orderId);
         if (order == null) {
             return new ResponseEntity<>(
-                new ResponseMessageWrapper("Не получилось получить информацию о заказе"),
-                HttpStatus.BAD_REQUEST
+                new ResponseMessageWrapper("Заказ не найден"),
+                HttpStatus.NOT_FOUND
             );
         }
         Long numberPages = taskScanRepository.getScanTaskNumberPagesByOrderId(order.getOrderId());

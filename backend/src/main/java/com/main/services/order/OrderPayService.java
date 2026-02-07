@@ -69,7 +69,7 @@ public class OrderPayService {
                 HttpStatus.BAD_REQUEST
             );
         }
-        for (OrderWithAddress order : orders) {
+        for (OrderWithAddress order: orders) {
             if (!orderWithAddressService.changeStatusOrderToPaid(order.getOrderId())) {
                 return new ResponseEntity<>(
                     new ResponseMessageWrapper("Не получилось обновить статус заказа"),
