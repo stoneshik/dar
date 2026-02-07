@@ -1,5 +1,6 @@
 package com.main.services;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,7 @@ public class AccountService {
         if (accountId == null) {
             return new ResponseEntity<>(
                 new ResponseMessageWrapper("Счет не найден"),
-                HttpStatus.BAD_REQUEST
+                HttpStatus.NOT_FOUND
             );
         }
         List<ReplenishEntity> replenishes = replenishService.getAllReplenishesByAccountId(accountId);
@@ -52,11 +53,17 @@ public class AccountService {
         ReplenishDto replenishDto,
         String login
     ) {
+        if (replenishDto.getReplenishAmount().compareTo(BigDecimal.ZERO) <= 0) {
+            return new ResponseEntity<>(
+                new ResponseMessageWrapper("Значение пополнения меньше или равно нулю"),
+                HttpStatus.BAD_REQUEST
+            );
+        }
         final Long accountId = accountRepository.getAccountId(login);
         if (accountId == null) {
             return new ResponseEntity<>(
                 new ResponseMessageWrapper("Счет не найден"),
-                HttpStatus.BAD_REQUEST
+                HttpStatus.NOT_FOUND
             );
         }
         final boolean isCreatedNewReplenish = replenishService.createNewReplenish(

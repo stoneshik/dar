@@ -92,7 +92,7 @@ abstract class SpringBootApplicationTest {
                 user_created_datetime timestamp NOT NULL DEFAULT current_timestamp,
                 user_status user_status_enum NOT NULL DEFAULT 'unverified'
             );
-            CREATE TABLE IF NOT EXISTS  user_roles (
+            CREATE TABLE IF NOT EXISTS user_roles (
                 user_role_id serial PRIMARY KEY,
                 user_id integer NOT NULL REFERENCES users ON DELETE CASCADE,
                 role_id integer NOT NULL REFERENCES roles ON DELETE CASCADE
