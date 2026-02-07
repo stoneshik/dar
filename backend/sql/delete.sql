@@ -24,7 +24,8 @@ DROP TABLE IF EXISTS
     accounts,
     files,
     users,
-    roles
+    roles,
+    config
     ;
 DROP TYPE IF EXISTS
     user_status_enum,
